@@ -52,3 +52,5 @@ def match_case_calc(num_1: float, num_2: float, command: str) -> tp.Union[float,
         case _:
             return f"Неизвестный оператор: {command!r}."
 while True:
+    command = input('Введите операцию: ')
+    print(kalc(command))
