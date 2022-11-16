@@ -53,40 +53,40 @@ def input_values(command: str) -> tuple[float, float] | tuple[float, None]:
     return num, None
 
 
-def calc(command: str, num_1: float, num_2=0.0) -> tp.Union[float, str]:  # type: ignore
+def calc(c: str, a: float, b=0.0) -> tp.Union[float, str]:  # type: ignore
     """Калькулятор операций"""
     if c == '+':
         return a + b
-    if c == '-':
+    elif c == '-':
         return a - b
-    if c == '*':
+    elif c == '*':
         return a * b
-    if c == '/' and b == 0:
+    elif c == '/' and b == 0:
         return 'Делить на 0 нельзя'
-    if c == '/' and b != 0:
+    elif c == '/' and b != 0:
         return a / b
-    if c == '#' and b > 9:
+    elif c == '#' and b > 9:
         return 'Основание системы счисления должно быть не больше 9'
-    if c == '#' and b <= 9 and check_int(a) is None or check_int(b) is None:
+    elif c == '#' and b <= 9 and check_int(a) is None or check_int(b) is None:
         return 'Число и основание системы счисления должны быть целочисленными'
-    if c == '#' and b <= 9 and check_int(a) != None or check_int(b) != None:
+    elif c == '#' and b <= 9 and check_int(a) != None or check_int(b) != None:
         return convert(int(a), int(b))
-    if c == '^y':
+    elif c == '^y':
         return a ** b
-    if c == '^2':
+    elif c == '^2':
         return a ** 2
-    if c == 'sin':
+    elif c == 'sin':
         return math.sin(num_1)
-    if c == 'cos':
+    elif c == 'cos':
         return math.cos(num_1)
-    if c == 'tg':
+    elif c == 'tg':
         return math.tan(num_1)
-    if c == 'ln':
+    elif c == 'ln':
         return math.log(num_1)
-    if c == 'log':
+    elif c == 'log':
         return math.log10(num_1)
     else:
-        return f"Неизвестная операция: {command!r}."
+        return f"Неизвестная операция: {c!r}."
 
 
 def parse_chain(chain: str):
