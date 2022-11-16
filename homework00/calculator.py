@@ -1,6 +1,6 @@
 import typing as tp
 from math import cos, tan, sin, log, log1p, pow
-def kalc(command):
+def kalc(command: str) -> tp.Union[float, str]:
     if command in ['^2', 'cos', 'tan', 'sin', 'ln', 'lg']:
         d = float(input())
         if command == '^2':
