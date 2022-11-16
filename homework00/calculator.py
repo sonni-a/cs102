@@ -29,6 +29,7 @@ def kalc(a:float, command:str, b=1.0) -> tp.Union[float, str]:
             return a*b
     else: return 'Вы ввели какую-то ерунду'
 
+    
 a = float(input())
 command = input()
 if command in ['^2', 'cos', 'tan', 'sin', 'ln', 'lg', '^']:
