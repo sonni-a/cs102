@@ -16,7 +16,10 @@ def kalc(command):
         if command == 'lg':
             return log(d, 10)
     elif command in ['^', '+', '-', '/', '*']:
-        a, b = map(float, input().split())
+        print('Введите первое число')
+        a = float(input())
+        print('Введите второе число')
+        b = float(input())
         if command == '+':
             return a+b
         if command == '-':
