@@ -44,5 +44,5 @@ if command in ['^2', 'cos', 'tan', 'sin', 'ln', 'lg', '^']:
     print(kalc(num_1, command))
 elif command in ['+', '-', '*', '/']:
     print('Введите второе число:')
-    num_2 = float(input())_1, command, num_2))
+    num_2 = float(num_1, command, num_2))
     print(kalc(num_1, command, num_2))
