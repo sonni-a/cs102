@@ -2,47 +2,47 @@ import typing as tp
 from math import cos, tan, sin, log, pow
 
 
-def kalc(a:float, command:str, b=1.0) -> tp.Union[float, str]:
+def kalc(num_1: float, command: str, num_2=1.0) -> tp.Union[float, str]:
     if command == '^2':
-            return a ** 2
+        return num_1 ** 2
     if command == 'cos':
-            return cos(a)
+        return cos(num_1)
     if command == 'tan':
-        if math.cos(num1) != 0:
-            return tan(a)
-        else: return ('На 0 делить нельзя поэтому косинус не может быть равен нулю')
+        if cos(num_1) == 0:
+            return 'На 0 делить нельзя поэтому косинус не может быть равен нулю'
+        return tan(num_1)
     if command == 'sin':
-            return sin(a)
+        return sin(num_1)
     if command == 'ln':
-        if a > 0:
-            return log(a)
-        else: return 'Аргумент должен быть больше нуля'
+        if num_1 <= 0:
+            return 'Аргумент должен быть больше нуля'
+        return log(num_1)
     if command == 'lg':
-        if a > 0:
-            return log(a, 10)
-        else: return 'Аргумент должен быть больше нуля'
+        if num_1 <= 0:
+            return 'Аргумент должен быть больше нуля'
+        return log(num_1, 10)
     if command == '+':
-            return a+b
+        return num_1 + num_2
     if command == '-':
-            return a-b
+        return num_1 - num_2
     if command == '^':
-            return pow(a, b)
+        return pow(num_1, num_2)
     if command == '/':
-        if b != 0:
-            return a / b
-        else: return 'На 0 делить нельзя'
+        if num_2 == 0:
+            return 'На 0 делить нельзя'
+        return num_1 / num_2
     if command == '*':
-            return a*b
-    else: return 'Вы ввели какую-то ерунду'
+        return num_1 * num_2
+    return 'Вы ввели какую-то ерунду'
 
 
 print('Введите первое число:')
-a = float(input())
+num_1 = float(input())
 print('Введите операцию')
 command = input()
 if command in ['^2', 'cos', 'tan', 'sin', 'ln', 'lg', '^']:
-    print(kalc(a, command))
+    print(kalc(num_1, command))
 elif command in ['+', '-', '*', '/']:
     print('Введите второе число:')
-    b = float(input())
-    print(kalc(a, command, b))
+    num_2 = float(input())
+    print(kalc(num_1, command, num_2))
