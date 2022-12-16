@@ -153,6 +153,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
         grid[empty[0]][empty[1]] = "."
         return None
     else:
+        
         return grid
 
 
