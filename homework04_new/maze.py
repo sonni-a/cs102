@@ -120,7 +120,7 @@ def shortest_path(
     p = [exit_coord]
     currcell = exit_coord
 
-    while grid[currcell[0]][currcell[1]] < 1 or grid[currcell[0]][currcell[1]] > 1:
+    while grid[currcell[0]][currcell[1]] != 1:
         if currcell[0] > 0 and grid[currcell[0] - 1][currcell[1]] == k - 1:
             nextc = (currcell[0] - 1, currcell[1])
         elif currcell[0] < len(grid) - 1 and grid[currcell[0] + 1][currcell[1]] == k - 1:
