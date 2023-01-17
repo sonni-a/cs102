@@ -195,7 +195,7 @@ def generate_sudoku(N: int) -> tp.Optional[tp.List[tp.List[str]]]:
     while N < 81:
         i, k = random.randint(0, 8), random.randint(0, 8)
         if grid:
-            if grid[i][k] != ".":
+            if grid[i][k] != ".": #sf
                 grid[i][k] = "."
                 N += 1
     return grid
