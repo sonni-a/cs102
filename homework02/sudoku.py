@@ -110,7 +110,9 @@ def find_empty_positions(
     return None
 
 
-def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
+def find_possible_values(
+    grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]
+) -> tp.Set[str]:
     """Вернуть множество возможных значения для указанной позиции
     >>> grid = read_sudoku('puzzle1.txt')
     >>> values = find_possible_values(grid, (0,2))
@@ -201,6 +203,7 @@ def generate_sudoku(N: int) -> tp.Optional[tp.List[tp.List[str]]]:
         i, k = random.randint(0, 8), random.randint(0, 8)
         if grid:
             if grid[i][k] != ".": #sf
+
                 grid[i][k] = "."
                 N += 1
     return grid
