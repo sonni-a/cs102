@@ -55,7 +55,6 @@ class GameOfLife:
             neighbours.append(val)
         return neighbours
 
-
     def get_next_generation(self) -> Grid:
         grid = self.curr_generation.copy()
 
@@ -100,9 +99,9 @@ class GameOfLife:
         """
         Изменилось ли состояние клеток с предыдущего шага.
         """
-        return str(self.curr_generation) != str(self.prev_generation) or str(
-            self.curr_generation
-        ) != str(self.get_next_generation())
+        return str(self.curr_generation) != str(self.prev_generation) or str(self.curr_generation) != str(
+            self.get_next_generation()
+        )
 
     @staticmethod
     def from_file(filename: pathlib.Path) -> "GameOfLife":

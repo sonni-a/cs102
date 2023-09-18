@@ -9,13 +9,19 @@ class Console(UI):
         super().__init__(life)
 
     def draw_borders(self, screen) -> None:
-        """ Отобразить рамку. """
-        screen.border('|', '|', '-', '-', '+', '+', '+', '+')
+        """Отобразить рамку."""
+        screen.border("|", "|", "-", "-", "+", "+", "+", "+")
         pass
 
     def draw_grid(self, screen) -> None:
-        """ Отобразить состояние клеток. """
-        colors = [curses.COLOR_RED, curses.COLOR_YELLOW, curses.COLOR_GREEN, curses.COLOR_BLUE, curses.COLOR_CYAN,]
+        """Отобразить состояние клеток."""
+        colors = [
+            curses.COLOR_RED,
+            curses.COLOR_YELLOW,
+            curses.COLOR_GREEN,
+            curses.COLOR_BLUE,
+            curses.COLOR_CYAN,
+        ]
         grid = self.life.curr_generation
 
         for i in colors:

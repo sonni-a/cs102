@@ -1,5 +1,5 @@
 import typing as tp
-from math import cos, tan, sin, log, pow
+from math import cos, log, pow, sin, tan
 
 
 def kalc(num_1: float, command: str, num_2=1.0) -> tp.Union[float, str]:
