@@ -79,7 +79,16 @@ class GameOfLife:
         out : Grid
             Матрица клеток размером `cell_height` х `cell_width`.
         """
-        pass
+        grid = []
+        for i in range(self.cell_height):
+            row = []
+            for j in range(self.cell_width):
+                cell = 0
+                if randomize:
+                    cell = random.choice((0, 1))
+                row.append(cell)
+            grid.append(row)
+        return grid
 
     def draw_grid(self) -> None:
         """
@@ -105,7 +114,19 @@ class GameOfLife:
         out : Cells
             Список соседних клеток.
         """
-        pass
+        neighbours = []
+        positions = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
+
+        for pos in positions:
+            _x = cell[1] + pos[0]
+            _y = cell[0] + pos[1]
+            if _x < 0 or _y < 0:
+                continue
+            if _x > self.cell_width - 1 or _y > self.cell_height - 1:
+                continue
+            val = self.grid[_y][_x]
+            neighbours.append(val)
+        return neighbours
 
     def get_next_generation(self) -> Grid:
         """
@@ -116,4 +137,22 @@ class GameOfLife:
         out : Grid
             Новое поколение клеток.
         """
-        pass
+        grid = self.grid
+
+        changes = []
+
+        for row in range(len(grid)):
+            for col in range(len(grid[row])):
+                neighbours = self.get_neighbours((row, col))
+                n = sum(neighbours)
+                cell = grid[row][col]
+                if n not in [2, 3] and cell == 1:
+                    changes.append(((row, col), 0))
+                elif n == 3 and cell == 0:
+                    changes.append(((row, col), 1))
+
+        for case in changes:
+            (row, col), a = case[0], case[1]
+            grid[row][col] = a
+
+        return self.grid
