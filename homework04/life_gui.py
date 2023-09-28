@@ -66,5 +66,5 @@ class GUI(UI):
         pygame.quit()
 
 pygame.init()
-life = GameOfLife((24, 80), max_generations=50)
+life = GameOfLife((24, 80), max_generations=100)
 GUI(life).run()
