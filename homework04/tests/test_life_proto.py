@@ -4,6 +4,8 @@ import random
 import unittest
 from unittest.mock import MagicMock
 
+import sys
+sys.path.append('C:/Users/user/Desktop/cs102/homework04')
 import life_proto
 
 life_proto.pygame.display = MagicMock()

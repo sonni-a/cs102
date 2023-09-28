@@ -43,6 +43,7 @@ class GameOfLife:
 
         # Создание списка клеток
         # PUT YOUR CODE HERE
+        self.grid = self.create_grid(randomize=True)
 
         running = True
         while running:
@@ -52,8 +53,10 @@ class GameOfLife:
             self.draw_lines()
 
             # Отрисовка списка клеток
+            self.draw_grid()
             # Выполнение одного шага игры (обновление состояния ячеек)
             # PUT YOUR CODE HERE
+            self.grid = self.get_next_generation()
 
             pygame.display.flip()
             clock.tick(self.speed)
@@ -77,22 +80,19 @@ class GameOfLife:
         out : Grid
             Матрица клеток размером `cell_height` х `cell_width`.
         """
-        grid = []
-        for i in range(self.cell_height):
-            row = []
-            for j in range(self.cell_width):
-                cell = 0
-                if randomize:
-                    cell = random.choice((0, 1))
-                row.append(cell)
-            grid.append(row)
-        return grid
+        cells = [[random.randint(0, int(randomize)) for _ in range(self.cell_width)] for _ in range(self.cell_height)]
+        return cells
+
 
     def draw_grid(self) -> None:
         """
         Отрисовка списка клеток с закрашиванием их в соответствующе цвета.
         """
-        pass
+        for i, row in enumerate(self.grid):
+            for j, col in enumerate(row):
+                color = "green" if self.grid[i][j] == 1 else "white"
+                coords = (j * self.cell_size + 1, i * self.cell_size + 1, self.cell_size - 1, self.cell_size - 1)
+                pygame.draw.rect(self.screen, color, coords)
 
     def get_neighbours(self, cell: Cell) -> Cells:
         """
@@ -113,17 +113,15 @@ class GameOfLife:
             Список соседних клеток.
         """
         neighbours = []
-        positions = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
+        row, col = cell
+        neigh_index_shifts = [(-1, -1), (-1, 0), (0, -1), (1, 1), (1, 0), (0, 1), (-1, 1), (1, -1)]
 
-        for pos in positions:
-            _x = cell[1] + pos[0]
-            _y = cell[0] + pos[1]
-            if _x < 0 or _y < 0:
+        for position in neigh_index_shifts:
+            new_row, new_col = row + position[0], col + position[1]
+            if new_row < 0 or new_row >= self.cell_height or new_col < 0 or new_col >= self.cell_width:
                 continue
-            if _x > self.cell_width - 1 or _y > self.cell_height - 1:
-                continue
-            val = self.grid[_y][_x]
-            neighbours.append(val)
+            neighbours.append(self.grid[new_row][new_col])
+
         return neighbours
 
     def get_next_generation(self) -> Grid:
@@ -135,22 +133,17 @@ class GameOfLife:
         out : Grid
             Новое поколение клеток.
         """
-        grid = self.grid
+        next_gen = [[0 for _ in range(self.cell_width)] for _ in range(self.cell_height)]
+        for i, row in enumerate(self.grid):
+            for j, _ in enumerate(row):
+                neighbours = sum(self.get_neighbours((i, j)))
 
-        changes = []
+                if 2 <= neighbours <= 3:
+                    if neighbours == 3 and self.grid[i][j] == 0:
+                        next_gen[i][j] = 1
+                        continue
+                    next_gen[i][j] = self.grid[i][j]
+                    continue
+                next_gen[i][j] = 0
 
-        for row in range(len(grid)):
-            for col in range(len(grid[row])):
-                neighbours = self.get_neighbours((row, col))
-                n = sum(neighbours)
-                cell = grid[row][col]
-                if n not in [2, 3] and cell == 1:
-                    changes.append(((row, col), 0))
-                elif n == 3 and cell == 0:
-                    changes.append(((row, col), 1))
-
-        for case in changes:
-            (row, col), a = case[0], case[1]
-            grid[row][col] = a
-
-        return self.grid
+        return next_gen

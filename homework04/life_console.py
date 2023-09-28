@@ -1,6 +1,6 @@
 import curses
 
-from life import GameOfLife
+from homework04.tests.life import GameOfLife
 from ui import UI
 
 
@@ -39,19 +39,17 @@ class Console(UI):
 
     def run(self) -> None:
         screen = curses.initscr()
-        screen = curses.initscr()
-        k = 0
-        curses.start_color()
-        curses.use_default_colors()
+        curses.noecho()
+        self.draw_borders(screen)
+        self.draw_grid(screen)
+        screen.refresh()
+        UI.run(self)
 
-        while k != ord("q"):
-            screen.clear()
-            screen.resize(self.life.rows + 4, self.life.cols + 4)
-
-            self.draw_borders(screen)
-            self.draw_grid(screen)
+        while self.life.is_changing and not self.life.is_max_generations_exceeded:
             self.life.step()
+            self.draw_grid(screen)
             screen.refresh()
-            k = screen.getch()
+            UI.run(self)
 
-        curses.wrapper(self.draw_borders)
+        curses.endwin()
+

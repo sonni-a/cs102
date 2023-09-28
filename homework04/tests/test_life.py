@@ -3,6 +3,8 @@ import os
 import random
 import unittest
 
+import sys
+sys.path.append('C:/Users/user/Desktop/cs102/homework04')
 import life
 
 
